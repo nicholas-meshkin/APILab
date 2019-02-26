@@ -1,5 +1,6 @@
 package APIlab.famouslab;
 
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,14 @@ public class FamousLabController {
 	@RequestMapping("/")
 	public ModelAndView home() {
 		List<Tiny> tinyList = apiService.tinyList();
+		tinyList.sort(Comparator.comparing(Tiny::getYear));
 		return new ModelAndView("index", "list", tinyList);
 	}
 	
 	@RequestMapping("/complete")
 	public ModelAndView complete() {
 		List<Complete> completeList = apiService.completeList();
+		completeList.sort(Comparator.comparing(Complete::getYear));
 		return new ModelAndView("complete", "list", completeList);
 	}
 
